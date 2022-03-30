@@ -8,27 +8,21 @@
 ### Requirements:
 - Docker Engine release 18.06.0+
 - Docker-compose version 1.25+
-- Make
+- GNU Make 3.81
 
 
 ### Quickstart guide:
 
-1. Init env
-   ``
-   make up 
-   ``
+0. Build containers: `` make build ``
+1. Start project: `` make up `` 
+2. Open php-fpm container: `` make cli ``
+   0. Enter install composer: `` composer install ``
+   1. Replace .env.example: `` mv .env.example .enc``
+   2. Key generate: `` php artisan key:generate ``
+   3. Migrate tables: `` php artisan migrate ``
 
-2. Open php-fpm container
-   ``
-   make cli
-   ``
-3. Enter command for migrate
-   ``
-   php artisan migrate
-   ``
-4. Enter command in container
-   ``
-   php artisan league:import
-   ``
+3. Import data (clubs, players, player skills) from FIFA.
+
+   `` php artisan league:import ``
 
 

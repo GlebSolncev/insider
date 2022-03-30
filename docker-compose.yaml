@@ -1,7 +1,7 @@
 version: "3.8"
 services:
-  sf_app:
-    container_name: sf_app
+  asfapp:
+    container_name: asfapp
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
@@ -11,12 +11,12 @@ services:
       - .:/usr/src/app
       - ./public:/usr/src/app/public
     depends_on:
-      - sf_db
+      - asfdb
     networks:
       - app_network
 
-  sf_nginx:
-    container_name: sf_nginx
+  asfnginx:
+    container_name: asfnginx
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
@@ -25,15 +25,15 @@ services:
     ports:
       - 8000:80
     depends_on:
-      - sf_app
+      - asfapp
     environment:
-      NGINX_FPM_HOST: sf_app
+      NGINX_FPM_HOST: asfapp
       NGINX_ROOT: /usr/src/app/public
     networks:
       - app_network
 
-  sf_db:
-    container_name: sf_db
+  asfdb:
+    container_name: asfdb
     image: mysql:8.0.20
     restart: always
     volumes:
@@ -41,15 +41,15 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: blog
+      MYSQL_DATABASE: football_simulator
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: root
       MYSQL_PASSWORD: root
     networks:
       - app_network
 
-  sf_redis:
-    container_name: sf_redis
+  asfredis:
+    container_name: asfredis
     image: redis:latest
     ports:
       - 6379:6379
